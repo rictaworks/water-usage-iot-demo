@@ -13,7 +13,8 @@ async function fetchJson<T>(path: string, options?: RequestInit & { _skipSession
     await sessionPromise;
   }
 
-  const { _skipSessionWait: _s, ...fetchOptions } = options ?? {};
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { _skipSessionWait, ...fetchOptions } = options ?? {};
   const response = await fetch(path, {
     credentials: 'include',
     ...fetchOptions,
