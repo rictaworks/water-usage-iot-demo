@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     post 'devices',           to: 'devices#create'
     post 'readings',          to: 'readings#create'
     get  'stream',            to: 'streams#show'
+    get  'simulator/status',  to: 'simulator#status'
     post 'simulator/start',   to: 'simulator#start'
     post 'simulator/stop',    to: 'simulator#stop'
     post 'admin/daily-reset', to: 'admin#daily_reset'

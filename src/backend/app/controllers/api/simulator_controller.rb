@@ -1,10 +1,18 @@
 module Api
   class SimulatorController < BaseController
+    def status
+      sess = current_session
+      return render json: { error: 'Session not found' }, status: :unauthorized unless sess
+
+      running = VirtualSimulator.running?(sess.id)
+      render json: { running: running, scenario: nil }
+    end
+
     def start
       sess = current_session
       return render json: { error: 'Session not found' }, status: :unauthorized unless sess
 
-      scenario_name = params[:scenario_name].to_s
+      scenario_name = params[:scenario].to_s
       VirtualSimulator.start(scenario_name, sess.id)
       render json: { status: 'started', scenario: scenario_name }
     rescue ArgumentError => e
