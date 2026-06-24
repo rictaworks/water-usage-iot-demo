@@ -7,13 +7,19 @@ function sessionHeaders(): Record<string, string> {
   return sessionId ? { 'X-Session-Id': sessionId } : {};
 }
 
-async function fetchJson<T>(path: string, options?: RequestInit): Promise<T> {
+async function fetchJson<T>(path: string, options?: RequestInit & { _skipSessionWait?: boolean }): Promise<T> {
+  // Wait for in-flight session initialization (skip for the session endpoint itself to avoid deadlock)
+  if (sessionPromise && !sessionId && !options?._skipSessionWait) {
+    await sessionPromise;
+  }
+
+  const { _skipSessionWait: _s, ...fetchOptions } = options ?? {};
   const response = await fetch(path, {
     credentials: 'include',
-    ...options,
+    ...fetchOptions,
     headers: {
       ...sessionHeaders(),
-      ...(options?.headers as Record<string, string> | undefined),
+      ...(fetchOptions.headers as Record<string, string> | undefined),
     },
   });
   if (!response.ok) {
@@ -25,7 +31,7 @@ async function fetchJson<T>(path: string, options?: RequestInit): Promise<T> {
 export async function getSession(): Promise<{ session_id: string }> {
   if (sessionId) return { session_id: sessionId };
   if (!sessionPromise) {
-    sessionPromise = fetchJson<{ session_id: string }>('/api/session').then((data) => {
+    sessionPromise = fetchJson<{ session_id: string }>('/api/session', { _skipSessionWait: true }).then((data) => {
       sessionId = data.session_id;
       return data;
     });
