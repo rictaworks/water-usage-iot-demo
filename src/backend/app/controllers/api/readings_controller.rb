@@ -21,8 +21,6 @@ module Api
         return render json: { status: 'duplicate', skipped: true }
       end
 
-      update_daily_summary(device, reading.volume_delta)
-
       alerts = AnomalyDetector.new.call(device, reading)
       alerts.each do |alert_data|
         device.alerts.create!(alert_data)
@@ -37,30 +35,5 @@ module Api
       }, status: :created
     end
 
-    private
-
-    def update_daily_summary(device, volume_delta)
-      today = Date.current
-      summary = device.daily_summary
-
-      if summary
-        summary.with_lock do
-          summary.total_liters += volume_delta
-          summary.date_jst = today
-          summary.updated_at = Time.current
-          summary.save!
-        end
-      else
-        begin
-          device.create_daily_summary!(
-            total_liters: volume_delta,
-            date_jst: today,
-            updated_at: Time.current
-          )
-        rescue ActiveRecord::RecordNotUnique
-          retry
-        end
-      end
-    end
   end
 end
