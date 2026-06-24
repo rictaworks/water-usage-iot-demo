@@ -1,0 +1,53 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "alerts": "Anomaly Detection",
+    "simulator": "Simulator",
+    "register": "Device Registration"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "currentFlow": "Current Flow Rate",
+    "todayUsage": "Today's Usage",
+    "activeAlerts": "Active Alerts",
+    "flowUnit": "L/min",
+    "usageUnit": "L",
+    "online": "Online",
+    "offline": "Offline",
+    "realtimeChart": "Realtime Flow",
+    "noData": "No Data"
+  },
+  "alerts": {
+    "title": "Anomaly Detection Panel",
+    "noAlerts": "No Alerts",
+    "ruleName": "Rule Name",
+    "message": "Message",
+    "occurredAt": "Occurred At"
+  },
+  "simulator": {
+    "title": "Virtual Simulator",
+    "scenarioNormal": "Normal",
+    "scenarioLeak": "Leak",
+    "scenarioHighFlow": "High Flow",
+    "start": "Start",
+    "stop": "Stop",
+    "running": "Running",
+    "stopped": "Stopped",
+    "selectScenario": "Select Scenario"
+  },
+  "register": {
+    "title": "Device Registration",
+    "deviceToken": "Device Token",
+    "deviceLabel": "Device Label",
+    "labelPlaceholder": "e.g. Kitchen Faucet",
+    "register": "Register",
+    "success": "Registration Complete",
+    "tokenHint": "Set this token on your ESP32"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "retry": "Retry",
+    "language": "Language"
+  }
+}

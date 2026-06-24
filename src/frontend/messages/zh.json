@@ -1,0 +1,53 @@
+{
+  "nav": {
+    "dashboard": "仪表盘",
+    "alerts": "异常检测",
+    "simulator": "模拟器",
+    "register": "设备注册"
+  },
+  "dashboard": {
+    "title": "仪表盘",
+    "currentFlow": "当前流量",
+    "todayUsage": "今日用量",
+    "activeAlerts": "活跃警报",
+    "flowUnit": "L/min",
+    "usageUnit": "L",
+    "online": "在线",
+    "offline": "离线",
+    "realtimeChart": "实时流量",
+    "noData": "无数据"
+  },
+  "alerts": {
+    "title": "异常检测面板",
+    "noAlerts": "无警报",
+    "ruleName": "规则名称",
+    "message": "消息",
+    "occurredAt": "发生时间"
+  },
+  "simulator": {
+    "title": "虚拟模拟器",
+    "scenarioNormal": "正常",
+    "scenarioLeak": "泄漏",
+    "scenarioHighFlow": "高流量",
+    "start": "开始",
+    "stop": "停止",
+    "running": "运行中",
+    "stopped": "已停止",
+    "selectScenario": "选择场景"
+  },
+  "register": {
+    "title": "设备注册",
+    "deviceToken": "设备令牌",
+    "deviceLabel": "设备标签",
+    "labelPlaceholder": "例: 厨房水龙头",
+    "register": "注册",
+    "success": "注册完成",
+    "tokenHint": "请将此令牌设置到您的ESP32"
+  },
+  "common": {
+    "loading": "加载中...",
+    "error": "错误",
+    "retry": "重试",
+    "language": "语言"
+  }
+}
