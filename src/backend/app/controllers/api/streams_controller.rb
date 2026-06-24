@@ -2,8 +2,8 @@ module Api
   class StreamsController < BaseController
     include ActionController::Live
 
-    HEARTBEAT_INTERVAL = 15
-    DATA_PUSH_INTERVAL = 30
+    HEARTBEAT_INTERVAL = 5
+    DATA_PUSH_INTERVAL = 10
 
     def show
       response.headers['Content-Type'] = 'text/event-stream'
@@ -41,20 +41,36 @@ module Api
 
     def push_session_data(stream, sess)
       devices = sess.devices.includes(:flow_readings, :daily_summary, :alerts)
-      payload = devices.map do |device|
+      total_liters = 0.0
+      active_alerts_count = 0
+
+      devices.each do |device|
         latest_reading = device.flow_readings.order(:received_at).last
-        {
-          device_id: device.id,
-          label: device.label,
-          is_virtual: device.is_virtual,
-          flow_rate: latest_reading&.flow_rate || 0.0,
-          total_liters: device.daily_summary&.total_liters || 0.0,
-          alerts: device.alerts.order(created_at: :desc).limit(5).map { |a|
-            { rule_id: a.rule_id, message: a.message, severity: a.severity }
+
+        if latest_reading
+          reading_event = {
+            type: 'reading',
+            data: {
+              id: latest_reading.id,
+              device_id: device.id,
+              flow_rate: latest_reading.flow_rate,
+              volume_total: device.daily_summary&.total_liters || 0.0,
+              recorded_at: latest_reading.received_at.iso8601
+            }
           }
-        }
+          stream.write("data: #{reading_event.to_json}\n\n")
+        end
+
+        device_alerts = device.alerts.order(created_at: :desc).limit(5)
+        active_alerts_count += device_alerts.count
+        total_liters += device.daily_summary&.total_liters || 0.0
       end
-      stream.write("data: #{payload.to_json}\n\n")
+
+      summary_event = {
+        type: 'summary',
+        data: { today_usage: total_liters, active_alerts: active_alerts_count }
+      }
+      stream.write("data: #{summary_event.to_json}\n\n")
     end
   end
 end
