@@ -14,31 +14,27 @@ module Api
       unless sess
         response.stream.write("event: error\ndata: {\"error\":\"Session not found\"}\n\n")
         return
-      ensure
-        response.stream.close
       end
 
       last_data_push = Time.current
 
-      begin
-        loop do
-          now = Time.current
+      loop do
+        now = Time.current
 
-          if now - last_data_push >= DATA_PUSH_INTERVAL
-            push_session_data(response.stream, sess)
-            last_data_push = now
-          end
-
-          response.stream.write(": heartbeat\n\n")
-          sleep(HEARTBEAT_INTERVAL)
+        if now - last_data_push >= DATA_PUSH_INTERVAL
+          push_session_data(response.stream, sess)
+          last_data_push = now
         end
-      rescue ActionController::Live::ClientDisconnected, IOError
-        # Client disconnected, close cleanly
-      rescue StandardError => e
-        Rails.logger.error("SSE stream error: #{e.message}")
-      ensure
-        response.stream.close
+
+        response.stream.write(": heartbeat\n\n")
+        sleep(HEARTBEAT_INTERVAL)
       end
+    rescue ActionController::Live::ClientDisconnected, IOError
+      # Client disconnected, close cleanly
+    rescue StandardError => e
+      Rails.logger.error("SSE stream error: #{e.message}")
+    ensure
+      response.stream.close
     end
 
     private
