@@ -22,6 +22,10 @@ class VirtualSimulator
       @mutex.synchronize { @threads[session_id] = thread }
     end
 
+    def running?(session_id)
+      @mutex.synchronize { @threads[session_id]&.alive? || false }
+    end
+
     def stop(session_id)
       @mutex.synchronize do
         flag = @stop_flags[session_id]
