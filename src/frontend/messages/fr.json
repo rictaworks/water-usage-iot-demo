@@ -1,0 +1,53 @@
+{
+  "nav": {
+    "dashboard": "Tableau de bord",
+    "alerts": "Détection d'anomalies",
+    "simulator": "Simulateur",
+    "register": "Enregistrement d'appareil"
+  },
+  "dashboard": {
+    "title": "Tableau de bord",
+    "currentFlow": "Débit actuel",
+    "todayUsage": "Utilisation aujourd'hui",
+    "activeAlerts": "Alertes actives",
+    "flowUnit": "L/min",
+    "usageUnit": "L",
+    "online": "En ligne",
+    "offline": "Hors ligne",
+    "realtimeChart": "Débit en temps réel",
+    "noData": "Aucune donnée"
+  },
+  "alerts": {
+    "title": "Panneau de détection d'anomalies",
+    "noAlerts": "Aucune alerte",
+    "ruleName": "Nom de règle",
+    "message": "Message",
+    "occurredAt": "Survenu à"
+  },
+  "simulator": {
+    "title": "Simulateur virtuel",
+    "scenarioNormal": "Normal",
+    "scenarioLeak": "Fuite",
+    "scenarioHighFlow": "Débit élevé",
+    "start": "Démarrer",
+    "stop": "Arrêter",
+    "running": "En cours",
+    "stopped": "Arrêté",
+    "selectScenario": "Sélectionner un scénario"
+  },
+  "register": {
+    "title": "Enregistrement d'appareil",
+    "deviceToken": "Jeton d'appareil",
+    "deviceLabel": "Étiquette de l'appareil",
+    "labelPlaceholder": "ex: Robinet de cuisine",
+    "register": "Enregistrer",
+    "success": "Enregistrement terminé",
+    "tokenHint": "Configurez ce jeton sur votre ESP32"
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "retry": "Réessayer",
+    "language": "Langue"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "nav": {
+    "dashboard": "لوحة التحكم",
+    "alerts": "كشف الشذوذ",
+    "simulator": "المحاكي",
+    "register": "تسجيل الجهاز"
+  },
+  "dashboard": {
+    "title": "لوحة التحكم",
+    "currentFlow": "معدل التدفق الحالي",
+    "todayUsage": "استخدام اليوم",
+    "activeAlerts": "التنبيهات النشطة",
+    "flowUnit": "ل/دقيقة",
+    "usageUnit": "ل",
+    "online": "متصل",
+    "offline": "غير متصل",
+    "realtimeChart": "التدفق الفوري",
+    "noData": "لا توجد بيانات"
+  },
+  "alerts": {
+    "title": "لوحة كشف الشذوذ",
+    "noAlerts": "لا توجد تنبيهات",
+    "ruleName": "اسم القاعدة",
+    "message": "الرسالة",
+    "occurredAt": "حدث في"
+  },
+  "simulator": {
+    "title": "المحاكي الافتراضي",
+    "scenarioNormal": "عادي",
+    "scenarioLeak": "تسرب",
+    "scenarioHighFlow": "تدفق عالي",
+    "start": "بدء",
+    "stop": "إيقاف",
+    "running": "قيد التشغيل",
+    "stopped": "متوقف",
+    "selectScenario": "اختر سيناريو"
+  },
+  "register": {
+    "title": "تسجيل الجهاز",
+    "deviceToken": "رمز الجهاز",
+    "deviceLabel": "تسمية الجهاز",
+    "labelPlaceholder": "مثال: صنبور المطبخ",
+    "register": "تسجيل",
+    "success": "اكتمل التسجيل",
+    "tokenHint": "اضبط هذا الرمز على ESP32 الخاص بك"
+  },
+  "common": {
+    "loading": "جارٍ التحميل...",
+    "error": "خطأ",
+    "retry": "إعادة المحاولة",
+    "language": "اللغة"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "nav": {
+    "dashboard": "ダッシュボード",
+    "alerts": "異常検知",
+    "simulator": "シミュレーター",
+    "register": "デバイス登録"
+  },
+  "dashboard": {
+    "title": "ダッシュボード",
+    "currentFlow": "現在の流量",
+    "todayUsage": "今日の使用量",
+    "activeAlerts": "アクティブアラート",
+    "flowUnit": "L/min",
+    "usageUnit": "L",
+    "online": "オンライン",
+    "offline": "オフライン",
+    "realtimeChart": "リアルタイム流量",
+    "noData": "データなし"
+  },
+  "alerts": {
+    "title": "異常検知パネル",
+    "noAlerts": "アラートなし",
+    "ruleName": "ルール名",
+    "message": "メッセージ",
+    "occurredAt": "発生時刻"
+  },
+  "simulator": {
+    "title": "仮想シミュレーター",
+    "scenarioNormal": "通常",
+    "scenarioLeak": "漏水",
+    "scenarioHighFlow": "大流量",
+    "start": "開始",
+    "stop": "停止",
+    "running": "実行中",
+    "stopped": "停止中",
+    "selectScenario": "シナリオを選択"
+  },
+  "register": {
+    "title": "デバイス登録",
+    "deviceToken": "デバイストークン",
+    "deviceLabel": "デバイスラベル",
+    "labelPlaceholder": "例: キッチン水道",
+    "register": "登録",
+    "success": "登録完了",
+    "tokenHint": "このトークンをESP32に設定してください"
+  },
+  "common": {
+    "loading": "読み込み中...",
+    "error": "エラー",
+    "retry": "再試行",
+    "language": "言語"
+  }
+}
