@@ -9,14 +9,22 @@ function sessionHeaders(): Record<string, string> {
   return sessionId ? { 'X-Session-Id': sessionId } : {};
 }
 
-async function fetchJson<T>(path: string, options?: RequestInit & { _skipSessionWait?: boolean }): Promise<T> {
+function clearSession() {
+  sessionId = null;
+  sessionPromise = null;
+  if (typeof window !== 'undefined') {
+    localStorage.removeItem(SESSION_STORAGE_KEY);
+  }
+}
+
+async function fetchJson<T>(path: string, options?: RequestInit & { _skipSessionWait?: boolean; _isRetry?: boolean }): Promise<T> {
   // Wait for in-flight session initialization (skip for the session endpoint itself to avoid deadlock)
   if (sessionPromise && !sessionId && !options?._skipSessionWait) {
     await sessionPromise;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { _skipSessionWait, ...fetchOptions } = options ?? {};
+  const { _skipSessionWait, _isRetry, ...fetchOptions } = options ?? {};
   const response = await fetch(path, {
     credentials: 'include',
     ...fetchOptions,
@@ -25,6 +33,14 @@ async function fetchJson<T>(path: string, options?: RequestInit & { _skipSession
       ...(fetchOptions.headers as Record<string, string> | undefined),
     },
   });
+
+  // On 401 with a stale session, clear and retry once with a fresh session
+  if (response.status === 401 && !_skipSessionWait && !_isRetry) {
+    clearSession();
+    await getSession();
+    return fetchJson<T>(path, { ...options, _isRetry: true });
+  }
+
   if (!response.ok) {
     throw new Error(`API error ${response.status}: ${response.statusText}`);
   }
