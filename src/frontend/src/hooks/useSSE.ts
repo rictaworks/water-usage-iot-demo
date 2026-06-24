@@ -16,7 +16,7 @@ interface SSEState {
   connected: boolean;
 }
 
-export function useSSE(apiUrl: string): SSEState {
+export function useSSE(): SSEState {
   const [state, setState] = useState<SSEState>({
     readings: [],
     alerts: [],
@@ -47,7 +47,7 @@ export function useSSE(apiUrl: string): SSEState {
       eventSourceRef.current.close();
     }
 
-    const es = new EventSource(`${apiUrl}/api/stream`, { withCredentials: true });
+    const es = new EventSource('/api/stream', { withCredentials: true });
     eventSourceRef.current = es;
 
     es.onopen = () => {
@@ -97,7 +97,7 @@ export function useSSE(apiUrl: string): SSEState {
         connect();
       }, RECONNECT_DELAY_MS);
     };
-  }, [apiUrl, loadMockData]);
+  }, [loadMockData]);
 
   useEffect(() => {
     connect();
