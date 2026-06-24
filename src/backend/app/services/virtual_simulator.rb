@@ -75,13 +75,18 @@ class VirtualSimulator
       return unless virtual_device
 
       now = Time.current
-      FlowReading.create!(
+      reading = FlowReading.create!(
         device_id: virtual_device.id,
         flow_rate: flow_rate,
         volume_delta: flow_rate / 12.0,
         received_at: now,
         received_at_sec: now.to_i
       )
+
+      alerts = AnomalyDetector.new.call(virtual_device, reading)
+      alerts.each do |alert_data|
+        virtual_device.alerts.create!(alert_data)
+      end
     rescue ActiveRecord::RecordNotUnique
       # Idempotency: duplicate timestamp, skip
     end
