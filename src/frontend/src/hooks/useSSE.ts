@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Alert, Device, Reading } from '@/types';
+import { getSession } from '@/lib/api';
 import { mockAlerts, mockDevice, mockReadings } from '@/lib/mockData';
 
 const MAX_READINGS = 60;
@@ -28,6 +29,7 @@ export function useSSE(): SSEState {
   const eventSourceRef = useRef<EventSource | null>(null);
   const reconnectTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const failedRef = useRef(false);
+  const sessionIdRef = useRef<string | null>(null);
 
   const loadMockData = useCallback(() => {
     setState({
@@ -47,7 +49,9 @@ export function useSSE(): SSEState {
       eventSourceRef.current.close();
     }
 
-    const es = new EventSource('/api/stream', { withCredentials: true });
+    const sid = sessionIdRef.current;
+    const url = sid ? `/api/stream?session_id=${sid}` : '/api/stream';
+    const es = new EventSource(url, { withCredentials: true });
     eventSourceRef.current = es;
 
     es.onopen = () => {
@@ -100,7 +104,14 @@ export function useSSE(): SSEState {
   }, [loadMockData]);
 
   useEffect(() => {
-    connect();
+    getSession()
+      .then((data) => {
+        sessionIdRef.current = data.session_id;
+      })
+      .catch(() => {})
+      .finally(() => {
+        connect();
+      });
 
     return () => {
       eventSourceRef.current?.close();

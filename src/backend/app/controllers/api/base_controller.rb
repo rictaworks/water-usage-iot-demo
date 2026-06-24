@@ -3,7 +3,9 @@ module Api
     private
 
     def current_session
-      session_id = cookies[:session_id]
+      session_id = request.headers['X-Session-Id'].presence ||
+                   params[:session_id].presence ||
+                   cookies[:session_id]
       return nil unless session_id
 
       @current_session ||= Session.find_by(id: session_id, expires_at: Time.current..)
