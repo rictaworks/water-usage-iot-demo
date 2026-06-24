@@ -10,7 +10,7 @@ ScenarioPreset.create!([
     pattern_json: { type: 'leak', flow_rate: 0.2, duration_min: 35, interval_sec: 5 }.to_json
   },
   {
-    name: 'peak',
+    name: 'high_flow',
     description: '大流量（20 L/min 以上のスパイク）',
     pattern_json: { type: 'peak', base: 2.0, spike: 25.0, spike_every: 10, interval_sec: 5 }.to_json
   }
