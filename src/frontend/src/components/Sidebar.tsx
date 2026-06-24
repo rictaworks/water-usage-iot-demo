@@ -10,7 +10,7 @@ import {
   faGlobe,
 } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
 const LOCALES = [
@@ -44,7 +44,6 @@ export default function Sidebar({ locale }: SidebarProps) {
   const t = useTranslations('nav');
   const tCommon = useTranslations('common');
   const pathname = usePathname();
-  const router = useRouter();
 
   const getLocalizedHref = (path: string) => `/${locale}${path === '/' ? '' : path}`;
 
@@ -56,7 +55,7 @@ export default function Sidebar({ locale }: SidebarProps) {
   const handleLocaleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const newLocale = event.target.value;
     const pathWithoutLocale = pathname.replace(new RegExp(`^/${locale}`), '') || '/';
-    router.push(`/${newLocale}${pathWithoutLocale === '/' ? '' : pathWithoutLocale}`);
+    window.location.href = `/${newLocale}${pathWithoutLocale === '/' ? '' : pathWithoutLocale}`;
   };
 
   return (
