@@ -1,5 +1,7 @@
 import type { Alert, Device, Reading, Scenario } from '@/types';
 
+const SESSION_STORAGE_KEY = 'water_iot_session_id';
+
 let sessionId: string | null = null;
 let sessionPromise: Promise<{ session_id: string }> | null = null;
 
@@ -30,10 +32,16 @@ async function fetchJson<T>(path: string, options?: RequestInit & { _skipSession
 }
 
 export async function getSession(): Promise<{ session_id: string }> {
+  if (!sessionId && typeof window !== 'undefined') {
+    sessionId = localStorage.getItem(SESSION_STORAGE_KEY);
+  }
   if (sessionId) return { session_id: sessionId };
   if (!sessionPromise) {
     sessionPromise = fetchJson<{ session_id: string }>('/api/session', { _skipSessionWait: true }).then((data) => {
       sessionId = data.session_id;
+      if (typeof window !== 'undefined') {
+        localStorage.setItem(SESSION_STORAGE_KEY, data.session_id);
+      }
       return data;
     });
   }
