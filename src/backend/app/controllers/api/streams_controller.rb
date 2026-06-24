@@ -17,12 +17,13 @@ module Api
       end
 
       last_data_push = Time.current
+      pushed_alert_ids = {}
 
       loop do
         now = Time.current
 
         if now - last_data_push >= DATA_PUSH_INTERVAL
-          push_session_data(response.stream, sess)
+          push_session_data(response.stream, sess, pushed_alert_ids)
           last_data_push = now
         end
 
@@ -39,8 +40,8 @@ module Api
 
     private
 
-    def push_session_data(stream, sess)
-      devices = sess.devices.includes(:flow_readings, :daily_summary, :alerts)
+    def push_session_data(stream, sess, pushed_alert_ids)
+      devices = sess.devices.includes(:daily_summary)
       total_liters = 0.0
       active_alerts_count = 0
 
@@ -61,9 +62,26 @@ module Api
           stream.write("data: #{reading_event.to_json}\n\n")
         end
 
-        device_alerts = device.alerts.order(created_at: :desc).limit(5)
+        device_alerts = device.alerts.order(created_at: :desc).limit(20)
         active_alerts_count += device_alerts.count
         total_liters += device.daily_summary&.total_liters || 0.0
+
+        device_alerts.reverse_each do |alert|
+          next if pushed_alert_ids[alert.id]
+          alert_event = {
+            type: 'alert',
+            data: {
+              id: alert.id,
+              device_id: device.id,
+              rule_name: alert.rule_id,
+              message: alert.message,
+              severity: alert.severity,
+              occurred_at: alert.created_at.iso8601
+            }
+          }
+          stream.write("data: #{alert_event.to_json}\n\n")
+          pushed_alert_ids[alert.id] = true
+        end
       end
 
       summary_event = {
