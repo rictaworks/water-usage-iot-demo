@@ -73,7 +73,9 @@ export function useSSE(): SSEState {
           const alertItem = parsed.data as Alert;
           setState((prev) => ({
             ...prev,
-            alerts: [alertItem, ...prev.alerts],
+            alerts: prev.alerts.some((a) => a.id === alertItem.id)
+              ? prev.alerts
+              : [alertItem, ...prev.alerts],
           }));
         } else if (parsed.type === 'summary') {
           const summary = parsed.data as { today_usage: number; active_alerts: number };
