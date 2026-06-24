@@ -1,0 +1,63 @@
+# 環境変数
+.env
+.env.local
+.env.*.local
+
+# 個人用 Claude 設定（共有しない）
+CLAUDE.local.md
+.claude/settings.local.json
+
+# Node.js
+node_modules/
+.next/
+out/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Ruby / Rails
+.bundle/
+vendor/bundle/
+tmp/
+log/
+*.log
+db/*.sqlite3
+db/*.sqlite3-shm
+db/*.sqlite3-wal
+
+# テスト・カバレッジ
+coverage/
+.nyc_output/
+playwright-report/
+test-results/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# エディタ
+.idea/
+*.swp
+*.swo
+.vscode/settings.json
+
+# ビルド成果物
+dist/
+build/
+
+# プロジェクト管理ディレクトリ（ローカル専用）
+TASKS/
+DEBUG/
+CLIENT/
+WORK/
+DELETE/
+ENV/
+test/
+app-ui/
+
+# Claude 設定（CLAUDE.md のみ追跡）
+.claude/
+
+# 仕様書（SPEC/ のみ追跡）
+water-usage-iot-demo-spec.md
