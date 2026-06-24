@@ -1,0 +1,53 @@
+{
+  "nav": {
+    "dashboard": "Панель управления",
+    "alerts": "Обнаружение аномалий",
+    "simulator": "Симулятор",
+    "register": "Регистрация устройства"
+  },
+  "dashboard": {
+    "title": "Панель управления",
+    "currentFlow": "Текущий расход",
+    "todayUsage": "Использование сегодня",
+    "activeAlerts": "Активные оповещения",
+    "flowUnit": "л/мин",
+    "usageUnit": "л",
+    "online": "Онлайн",
+    "offline": "Офлайн",
+    "realtimeChart": "Расход в реальном времени",
+    "noData": "Нет данных"
+  },
+  "alerts": {
+    "title": "Панель обнаружения аномалий",
+    "noAlerts": "Нет оповещений",
+    "ruleName": "Название правила",
+    "message": "Сообщение",
+    "occurredAt": "Произошло в"
+  },
+  "simulator": {
+    "title": "Виртуальный симулятор",
+    "scenarioNormal": "Нормальный",
+    "scenarioLeak": "Утечка",
+    "scenarioHighFlow": "Высокий расход",
+    "start": "Запустить",
+    "stop": "Остановить",
+    "running": "Выполняется",
+    "stopped": "Остановлено",
+    "selectScenario": "Выбрать сценарий"
+  },
+  "register": {
+    "title": "Регистрация устройства",
+    "deviceToken": "Токен устройства",
+    "deviceLabel": "Метка устройства",
+    "labelPlaceholder": "напр. Кухонный кран",
+    "register": "Зарегистрировать",
+    "success": "Регистрация завершена",
+    "tokenHint": "Установите этот токен на ваш ESP32"
+  },
+  "common": {
+    "loading": "Загрузка...",
+    "error": "Ошибка",
+    "retry": "Повторить",
+    "language": "Язык"
+  }
+}

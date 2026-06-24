@@ -1,0 +1,53 @@
+{
+  "nav": {
+    "dashboard": "Panel de control",
+    "alerts": "Detección de anomalías",
+    "simulator": "Simulador",
+    "register": "Registro de dispositivo"
+  },
+  "dashboard": {
+    "title": "Panel de control",
+    "currentFlow": "Caudal actual",
+    "todayUsage": "Uso de hoy",
+    "activeAlerts": "Alertas activas",
+    "flowUnit": "L/min",
+    "usageUnit": "L",
+    "online": "En línea",
+    "offline": "Sin conexión",
+    "realtimeChart": "Caudal en tiempo real",
+    "noData": "Sin datos"
+  },
+  "alerts": {
+    "title": "Panel de detección de anomalías",
+    "noAlerts": "Sin alertas",
+    "ruleName": "Nombre de regla",
+    "message": "Mensaje",
+    "occurredAt": "Ocurrido a las"
+  },
+  "simulator": {
+    "title": "Simulador virtual",
+    "scenarioNormal": "Normal",
+    "scenarioLeak": "Fuga",
+    "scenarioHighFlow": "Caudal alto",
+    "start": "Iniciar",
+    "stop": "Detener",
+    "running": "En ejecución",
+    "stopped": "Detenido",
+    "selectScenario": "Seleccionar escenario"
+  },
+  "register": {
+    "title": "Registro de dispositivo",
+    "deviceToken": "Token de dispositivo",
+    "deviceLabel": "Etiqueta de dispositivo",
+    "labelPlaceholder": "ej: Grifo de cocina",
+    "register": "Registrar",
+    "success": "Registro completo",
+    "tokenHint": "Configura este token en tu ESP32"
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Error",
+    "retry": "Reintentar",
+    "language": "Idioma"
+  }
+}

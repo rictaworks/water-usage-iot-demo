@@ -11,6 +11,12 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        deep: '#040810',
+        sidebar: '#070e1c',
+        card: '#0a1628',
+        accent: '#00c8ff',
+        warning: 'rgba(255,200,80,0.9)',
+        error: 'rgba(255,80,80,0.9)',
       },
     },
   },
