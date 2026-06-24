@@ -2,6 +2,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import Sidebar from '@/components/Sidebar';
+import SessionInit from '@/components/SessionInit';
 import { routing } from '@/i18n/routing';
 
 interface LocaleLayoutProps {
@@ -32,6 +33,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
       </head>
       <body style={{ backgroundColor: '#040810', margin: 0, padding: 0, fontFamily: '"Space Grotesk", sans-serif' }}>
         <NextIntlClientProvider messages={messages}>
+          <SessionInit />
           <div style={{ display: 'flex', minHeight: '100vh' }}>
             <Sidebar locale={locale} />
             <main style={{ flex: 1, overflow: 'auto', padding: '2rem' }}>
