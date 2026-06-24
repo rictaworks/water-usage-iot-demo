@@ -19,9 +19,11 @@ class FlowReading < ApplicationRecord
         summary.save!
       end
     else
-      device.create_daily_summary!(total_liters: volume_delta.to_f, date_jst: today)
-    rescue ActiveRecord::RecordNotUnique
-      retry
+      begin
+        device.create_daily_summary!(total_liters: volume_delta.to_f, date_jst: today)
+      rescue ActiveRecord::RecordNotUnique
+        retry
+      end
     end
   end
 end
