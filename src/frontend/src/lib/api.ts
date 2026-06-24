@@ -1,9 +1,7 @@
 import type { Alert, Device, Reading, Scenario } from '@/types';
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001';
-
 async function fetchJson<T>(path: string, options?: RequestInit): Promise<T> {
-  const response = await fetch(`${BASE_URL}${path}`, {
+  const response = await fetch(path, {
     credentials: 'include',
     ...options,
   });

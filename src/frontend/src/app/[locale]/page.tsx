@@ -7,11 +7,9 @@ import FlowChart from '@/components/FlowChart';
 import DeviceCard from '@/components/DeviceCard';
 import { useSSE } from '@/hooks/useSSE';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001';
-
 export default function DashboardPage() {
   const t = useTranslations('dashboard');
-  const { readings, summary, deviceStatus } = useSSE(API_URL);
+  const { readings, summary, deviceStatus } = useSSE();
 
   const currentFlow = readings.length > 0 ? readings[readings.length - 1].flow_rate : 0;
 
