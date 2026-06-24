@@ -7,6 +7,7 @@ const config: Config = {
   transform: {
     '^.+\\.(ts|tsx)$': ['ts-jest', { tsconfig: { jsx: 'react-jsx' } }],
   },
+  testPathIgnorePatterns: ['/node_modules/', '/tests/e2e/'],
 };
 
 export default config;
