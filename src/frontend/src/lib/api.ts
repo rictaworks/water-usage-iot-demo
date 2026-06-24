@@ -1,9 +1,20 @@
 import type { Alert, Device, Reading, Scenario } from '@/types';
 
+let sessionId: string | null = null;
+let sessionPromise: Promise<{ session_id: string }> | null = null;
+
+function sessionHeaders(): Record<string, string> {
+  return sessionId ? { 'X-Session-Id': sessionId } : {};
+}
+
 async function fetchJson<T>(path: string, options?: RequestInit): Promise<T> {
   const response = await fetch(path, {
     credentials: 'include',
     ...options,
+    headers: {
+      ...sessionHeaders(),
+      ...(options?.headers as Record<string, string> | undefined),
+    },
   });
   if (!response.ok) {
     throw new Error(`API error ${response.status}: ${response.statusText}`);
@@ -12,7 +23,18 @@ async function fetchJson<T>(path: string, options?: RequestInit): Promise<T> {
 }
 
 export async function getSession(): Promise<{ session_id: string }> {
-  return fetchJson<{ session_id: string }>('/api/session');
+  if (sessionId) return { session_id: sessionId };
+  if (!sessionPromise) {
+    sessionPromise = fetchJson<{ session_id: string }>('/api/session').then((data) => {
+      sessionId = data.session_id;
+      return data;
+    });
+  }
+  return sessionPromise;
+}
+
+export function getSessionId(): string | null {
+  return sessionId;
 }
 
 export async function getDevices(): Promise<Device[]> {
