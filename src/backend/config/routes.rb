@@ -1,0 +1,11 @@
+Rails.application.routes.draw do
+  namespace :api do
+    get  'session',           to: 'sessions#show'
+    post 'devices',           to: 'devices#create'
+    post 'readings',          to: 'readings#create'
+    get  'stream',            to: 'streams#show'
+    post 'simulator/start',   to: 'simulator#start'
+    post 'simulator/stop',    to: 'simulator#stop'
+    post 'admin/daily-reset', to: 'admin#daily_reset'
+  end
+end

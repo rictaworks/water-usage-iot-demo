@@ -1,0 +1,2 @@
+class ScenarioPreset < ApplicationRecord
+end
