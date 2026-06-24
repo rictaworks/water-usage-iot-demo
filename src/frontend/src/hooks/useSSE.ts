@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Alert, Device, Reading } from '@/types';
-import { getSession } from '@/lib/api';
 import { mockAlerts, mockDevice, mockReadings } from '@/lib/mockData';
 
 const MAX_READINGS = 60;
@@ -101,7 +100,7 @@ export function useSSE(): SSEState {
   }, [loadMockData]);
 
   useEffect(() => {
-    getSession().then(() => connect()).catch(() => connect());
+    connect();
 
     return () => {
       eventSourceRef.current?.close();
