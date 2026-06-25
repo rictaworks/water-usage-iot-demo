@@ -103,3 +103,11 @@ export async function stopSimulator(): Promise<void> {
 export async function getSimulatorStatus(): Promise<{ running: boolean; scenario: Scenario | null }> {
   return fetchJson<{ running: boolean; scenario: Scenario | null }>('/api/simulator/status');
 }
+
+export async function setPump(deviceId: string, pumpOn: boolean): Promise<{ pump_on: boolean }> {
+  return fetchJson<{ pump_on: boolean }>(`/api/devices/${deviceId}/pump`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ pump_on: pumpOn }),
+  });
+}
