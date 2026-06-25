@@ -75,6 +75,7 @@ class VirtualSimulator
       return unless virtual_device
 
       now = Time.current
+      virtual_device.update_column(:online_at, now)
       reading = FlowReading.create!(
         device_id: virtual_device.id,
         flow_rate: flow_rate,
