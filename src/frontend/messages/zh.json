@@ -15,7 +15,12 @@
     "online": "在线",
     "offline": "离线",
     "realtimeChart": "实时流量",
-    "noData": "无数据"
+    "noData": "无数据",
+    "waterTemp": "水温",
+    "tempUnit": "°C",
+    "pump": "水泵",
+    "pumpOn": "运行中",
+    "pumpOff": "已停止"
   },
   "alerts": {
     "title": "异常检测面板",
