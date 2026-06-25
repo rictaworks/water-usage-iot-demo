@@ -46,3 +46,9 @@ export interface SSEDeviceStatus {
 export type SSEEvent = SSEReading | SSEAlert | SSESummary | SSEDeviceStatus;
 
 export type Scenario = 'normal' | 'leak' | 'high_flow';
+
+export interface RegisteredDevice {
+  device_id: string;
+  label: string;
+  device_token: string;
+}

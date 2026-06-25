@@ -1,4 +1,4 @@
-import type { Alert, Device, Reading, Scenario } from '@/types';
+import type { Alert, Device, Reading, RegisteredDevice, Scenario } from '@/types';
 
 const SESSION_STORAGE_KEY = 'water_iot_session_id';
 
@@ -72,8 +72,8 @@ export async function getDevices(): Promise<Device[]> {
   return fetchJson<Device[]>('/api/devices');
 }
 
-export async function registerDevice(label: string, token: string): Promise<Device> {
-  return fetchJson<Device>('/api/devices', {
+export async function registerDevice(label: string, token: string): Promise<RegisteredDevice> {
+  return fetchJson<RegisteredDevice>('/api/devices', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ label, token }),
