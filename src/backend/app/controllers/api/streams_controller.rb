@@ -55,12 +55,24 @@ module Api
               id: latest_reading.id,
               device_id: device.id,
               flow_rate: latest_reading.flow_rate,
+              temperature: latest_reading.temperature,
               volume_total: device.daily_summary&.total_liters || 0.0,
               recorded_at: latest_reading.received_at.iso8601
             }
           }
           stream.write("data: #{reading_event.to_json}\n\n")
         end
+
+        device_status_event = {
+          type: 'device_status',
+          data: {
+            id: device.id,
+            label: device.label,
+            pump_on: device.pump_on,
+            online_at: device.online_at&.iso8601
+          }
+        }
+        stream.write("data: #{device_status_event.to_json}\n\n")
 
         device_alerts = device.alerts.order(created_at: :desc).limit(20)
         active_alerts_count += device_alerts.count
