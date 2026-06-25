@@ -61,3 +61,6 @@ app-ui/
 
 # 仕様書（SPEC/ のみ追跡）
 water-usage-iot-demo-spec.md
+
+# ESP32 secrets
+firmware/**/secrets.h
