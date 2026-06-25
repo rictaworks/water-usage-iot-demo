@@ -76,7 +76,7 @@ export async function registerDevice(label: string, token: string): Promise<Regi
   return fetchJson<RegisteredDevice>('/api/devices', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ label, token }),
+    body: JSON.stringify({ label, device_token: token }),
   });
 }
 
