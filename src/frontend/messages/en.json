@@ -15,7 +15,12 @@
     "online": "Online",
     "offline": "Offline",
     "realtimeChart": "Realtime Flow",
-    "noData": "No Data"
+    "noData": "No Data",
+    "waterTemp": "Water Temperature",
+    "tempUnit": "°C",
+    "pump": "Pump",
+    "pumpOn": "Running",
+    "pumpOff": "Stopped"
   },
   "alerts": {
     "title": "Anomaly Detection Panel",

@@ -15,7 +15,12 @@
     "online": "En línea",
     "offline": "Sin conexión",
     "realtimeChart": "Caudal en tiempo real",
-    "noData": "Sin datos"
+    "noData": "Sin datos",
+    "waterTemp": "Temperatura del agua",
+    "tempUnit": "°C",
+    "pump": "Bomba",
+    "pumpOn": "En marcha",
+    "pumpOff": "Detenida"
   },
   "alerts": {
     "title": "Panel de detección de anomalías",

@@ -15,7 +15,12 @@
     "online": "オンライン",
     "offline": "オフライン",
     "realtimeChart": "リアルタイム流量",
-    "noData": "データなし"
+    "noData": "データなし",
+    "waterTemp": "水温",
+    "tempUnit": "°C",
+    "pump": "ポンプ",
+    "pumpOn": "稼働中",
+    "pumpOff": "停止中"
   },
   "alerts": {
     "title": "異常検知パネル",

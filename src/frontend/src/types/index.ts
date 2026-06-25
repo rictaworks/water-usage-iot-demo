@@ -1,14 +1,15 @@
 export interface Reading {
-  id: number;
-  device_id: number;
+  id: string;
+  device_id: string;
   flow_rate: number;
+  temperature: number | null;
   volume_total: number;
   recorded_at: string;
 }
 
 export interface Alert {
-  id: number;
-  device_id: number;
+  id: string;
+  device_id: string;
   rule_name: string;
   message: string;
   severity: 'warning' | 'caution';
@@ -16,12 +17,10 @@ export interface Alert {
 }
 
 export interface Device {
-  id: number;
+  id: string;
   label: string;
-  token: string;
-  status: 'online' | 'offline';
-  led_status: 'green' | 'yellow' | 'red' | 'off';
-  last_seen_at: string;
+  pump_on: boolean;
+  online_at: string | null;
 }
 
 export interface SSEReading {
