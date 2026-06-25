@@ -5,14 +5,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle, faKey } from '@fortawesome/free-solid-svg-icons';
 import { useTranslations } from 'next-intl';
 import { getSession, registerDevice } from '@/lib/api';
-import type { Device } from '@/types';
+import type { RegisteredDevice } from '@/types';
 
 export default function DeviceRegisterForm() {
   const t = useTranslations('register');
   const tCommon = useTranslations('common');
   const [sessionToken, setSessionToken] = useState<string>('');
   const [label, setLabel] = useState('');
-  const [success, setSuccess] = useState<Device | null>(null);
+  const [success, setSuccess] = useState<RegisteredDevice | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const honeypotRef = useRef<HTMLInputElement>(null);
@@ -71,7 +71,7 @@ export default function DeviceRegisterForm() {
               className="text-xs mt-1"
               style={{ color: 'rgba(255,255,255,0.5)', fontFamily: '"DM Mono", monospace' }}
             >
-              {success.token}
+              {success.device_token}
             </p>
           </div>
         </div>
