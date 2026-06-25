@@ -15,10 +15,11 @@ interface SSEState {
   summary: { today_usage: number; active_alerts: number };
   deviceStatus: Device | null;
   connected: boolean;
+  setPumpState: (pumpOn: boolean) => void;
 }
 
 export function useSSE(): SSEState {
-  const [state, setState] = useState<SSEState>({
+  const [state, setState] = useState<Omit<SSEState, 'setPumpState'>>({
     readings: [],
     alerts: [],
     summary: { today_usage: 0, active_alerts: 0 },
@@ -123,5 +124,12 @@ export function useSSE(): SSEState {
     };
   }, [connect]);
 
-  return state;
+  const setPumpState = useCallback((pumpOn: boolean) => {
+    setState((prev) => prev.deviceStatus
+      ? { ...prev, deviceStatus: { ...prev.deviceStatus, pump_on: pumpOn } }
+      : prev
+    );
+  }, []);
+
+  return { ...state, setPumpState };
 }

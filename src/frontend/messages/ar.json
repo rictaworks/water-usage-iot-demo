@@ -15,7 +15,12 @@
     "online": "متصل",
     "offline": "غير متصل",
     "realtimeChart": "التدفق الفوري",
-    "noData": "لا توجد بيانات"
+    "noData": "لا توجد بيانات",
+    "waterTemp": "درجة حرارة الماء",
+    "tempUnit": "°C",
+    "pump": "المضخة",
+    "pumpOn": "تعمل",
+    "pumpOff": "متوقفة"
   },
   "alerts": {
     "title": "لوحة كشف الشذوذ",

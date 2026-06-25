@@ -2,17 +2,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMicrochip } from '@fortawesome/free-solid-svg-icons';
 import type { Device } from '@/types';
 
-const LED_COLORS: Record<Device['led_status'], string> = {
-  green: '#22c55e',
-  yellow: 'rgba(255,200,80,0.9)',
-  red: 'rgba(255,80,80,0.9)',
-  off: 'rgba(255,255,255,0.2)',
-};
-
 interface DeviceCardProps {
   device: Device;
   onlineLabel: string;
   offlineLabel: string;
+}
+
+function isOnline(onlineAt: string | null): boolean {
+  if (!onlineAt) return false;
+  return Date.now() - new Date(onlineAt).getTime() < 60_000;
 }
 
 function formatDateTime(isoString: string): string {
@@ -26,7 +24,7 @@ function formatDateTime(isoString: string): string {
 }
 
 export default function DeviceCard({ device, onlineLabel, offlineLabel }: DeviceCardProps) {
-  const isOnline = device.status === 'online';
+  const online = isOnline(device.online_at);
 
   return (
     <div className="rounded-xl p-5 flex items-center gap-4" style={{ backgroundColor: '#0a1628' }}>
@@ -43,22 +41,23 @@ export default function DeviceCard({ device, onlineLabel, offlineLabel }: Device
           <span
             className="text-xs px-2 py-0.5 rounded-full"
             style={{
-              backgroundColor: isOnline ? 'rgba(34,197,94,0.15)' : 'rgba(255,80,80,0.15)',
-              color: isOnline ? '#22c55e' : 'rgba(255,80,80,0.9)',
+              backgroundColor: online ? 'rgba(34,197,94,0.15)' : 'rgba(255,80,80,0.15)',
+              color: online ? '#22c55e' : 'rgba(255,80,80,0.9)',
             }}
           >
-            {isOnline ? onlineLabel : offlineLabel}
+            {online ? onlineLabel : offlineLabel}
           </span>
         </div>
-        <span className="text-xs" style={{ color: 'rgba(255,255,255,0.4)', fontFamily: '"DM Mono", monospace' }}>
-          {formatDateTime(device.last_seen_at)}
-        </span>
+        {device.online_at && (
+          <span className="text-xs" style={{ color: 'rgba(255,255,255,0.4)', fontFamily: '"DM Mono", monospace' }}>
+            {formatDateTime(device.online_at)}
+          </span>
+        )}
       </div>
 
       <div
         className="w-3 h-3 rounded-full flex-shrink-0"
-        style={{ backgroundColor: LED_COLORS[device.led_status] }}
-        aria-label={`LED: ${device.led_status}`}
+        style={{ backgroundColor: online ? '#22c55e' : 'rgba(255,255,255,0.2)' }}
       />
     </div>
   );

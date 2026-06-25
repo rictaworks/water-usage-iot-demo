@@ -15,7 +15,12 @@
     "online": "En ligne",
     "offline": "Hors ligne",
     "realtimeChart": "Débit en temps réel",
-    "noData": "Aucune donnée"
+    "noData": "Aucune donnée",
+    "waterTemp": "Température de l'eau",
+    "tempUnit": "°C",
+    "pump": "Pompe",
+    "pumpOn": "En marche",
+    "pumpOff": "Arrêtée"
   },
   "alerts": {
     "title": "Panneau de détection d'anomalies",
