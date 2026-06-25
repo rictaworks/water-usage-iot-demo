@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_24_164921) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_25_000002) do
   create_table "alerts", id: :string, force: :cascade do |t|
     t.datetime "created_at"
     t.string "device_id"
@@ -34,6 +34,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_24_164921) do
     t.boolean "is_virtual", default: false
     t.string "label"
     t.datetime "online_at"
+    t.boolean "pump_on", default: false, null: false
     t.string "session_id"
     t.index ["device_token"], name: "index_devices_on_device_token", unique: true
     t.index ["session_id"], name: "index_devices_on_session_id"
@@ -44,6 +45,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_24_164921) do
     t.float "flow_rate"
     t.datetime "received_at"
     t.integer "received_at_sec"
+    t.float "temperature"
     t.float "volume_delta"
     t.index ["device_id", "received_at_sec"], name: "index_flow_readings_on_device_id_and_received_at_sec", unique: true
     t.index ["device_id"], name: "index_flow_readings_on_device_id"

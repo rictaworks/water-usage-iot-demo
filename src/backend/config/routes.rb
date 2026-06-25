@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   namespace :api do
     get  'session',           to: 'sessions#show'
     post 'devices',           to: 'devices#create'
+    put  'devices/:id/pump',  to: 'devices#pump'
     post 'readings',          to: 'readings#create'
     get  'stream',            to: 'streams#show'
     get  'simulator/status',  to: 'simulator#status'
