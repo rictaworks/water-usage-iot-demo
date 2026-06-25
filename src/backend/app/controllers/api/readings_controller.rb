@@ -11,6 +11,7 @@ module Api
       reading = device.flow_readings.build(
         flow_rate: params[:flow_rate].to_f,
         volume_delta: params[:volume_delta].to_f,
+        temperature: params[:temperature]&.to_f,
         received_at: Time.at(received_at_sec).utc,
         received_at_sec: received_at_sec
       )
@@ -28,10 +29,13 @@ module Api
 
       led_state = LedController.new.call(alerts, reading.flow_rate)
 
+      device.update_column(:online_at, Time.current)
+
       render json: {
         reading_id: reading.id,
         alerts: alerts,
-        led_state: led_state
+        led_state: led_state,
+        pump_on: device.pump_on
       }, status: :created
     end
 

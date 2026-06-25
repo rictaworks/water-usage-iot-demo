@@ -19,5 +19,16 @@ module Api
         render json: { errors: device.errors.full_messages }, status: :unprocessable_entity
       end
     end
+
+    def pump
+      sess = current_session
+      return render json: { error: 'Session not found' }, status: :unauthorized unless sess
+
+      device = sess.devices.find_by(id: params[:id])
+      return render json: { error: 'Device not found' }, status: :not_found unless device
+
+      device.update!(pump_on: ActiveModel::Type::Boolean.new.cast(params[:pump_on]))
+      render json: { pump_on: device.pump_on }
+    end
   end
 end
