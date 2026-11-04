@@ -3,6 +3,10 @@
 .env.local
 .env.*.local
 
+# Cloudflare Workers（wrangler のローカル状態・ローカル開発用の秘密）
+.wrangler/
+.dev.vars
+
 # 個人用 Claude 設定（共有しない）
 CLAUDE.local.md
 .claude/settings.local.json

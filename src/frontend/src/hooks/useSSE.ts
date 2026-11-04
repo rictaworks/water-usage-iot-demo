@@ -30,7 +30,6 @@ export function useSSE(): SSEState {
   const eventSourceRef = useRef<EventSource | null>(null);
   const reconnectTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const failedRef = useRef(false);
-  const sessionIdRef = useRef<string | null>(null);
 
   const loadMockData = useCallback(() => {
     setState({
@@ -50,9 +49,8 @@ export function useSSE(): SSEState {
       eventSourceRef.current.close();
     }
 
-    const sid = sessionIdRef.current;
-    const url = sid ? `/api/stream?session_id=${sid}` : '/api/stream';
-    const es = new EventSource(url, { withCredentials: true });
+    // セッションは Cookie（session_id）だけで認証する。セッション ID を URL に載せない。
+    const es = new EventSource('/api/stream', { withCredentials: true });
     eventSourceRef.current = es;
 
     es.onopen = () => {
@@ -107,10 +105,8 @@ export function useSSE(): SSEState {
   }, [loadMockData]);
 
   useEffect(() => {
+    // 先にセッション Cookie を発行させてから接続する。
     getSession()
-      .then((data) => {
-        sessionIdRef.current = data.session_id;
-      })
       .catch(() => {})
       .finally(() => {
         connect();

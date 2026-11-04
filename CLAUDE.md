@@ -4,10 +4,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## プロジェクト概要
 
-ESP32 フローセンサーで水の流量を計測し、Next.js + Rails + SQLite のリアルタイムダッシュボードに表示する IoT デモシステム。
+ESP32 フローセンサーで水の流量を計測し、Next.js + Cloudflare Workers（Hono）+ D1 のリアルタイムダッシュボードに表示する IoT デモシステム。
 
-**技術スタック:** Next.js (TypeScript) + Ruby on Rails (API モード) + SQLite + ESP32  
-**デプロイ:** Vercel（フロント）+ Railway（バック）  
+**技術スタック:** Next.js（静的書き出し・TypeScript）+ Cloudflare Workers（Hono・TypeScript）+ D1（SQLite）+ ESP32  
+**デプロイ:** Cloudflare（Workers + D1。フロントは Workers Assets で同一オリジン配信）。旧 Rails（`src/backend`）と旧 Vercel/Railway 設定は残してあり、Railway は 2026-10-21 の不正アクセス公表を受けて 2026-10-22 から本番停止中。移行は Issue #32。  
 **ドメイン:** rictaworks.jp のサブドメイン  
 **認証:** Google ログイン（デモ版は認証なし、Cookie session_id でデータ分離）
 

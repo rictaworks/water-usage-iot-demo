@@ -1,8 +1,10 @@
 # API エンドポイント一覧
 
 ベース URL:
-- 開発: `http://localhost:3001`
-- 本番: `https://api.water-usage-iot-demo.rictaworks.jp`
+- 開発: `http://localhost:8787`（`src/worker` の `wrangler dev`）
+- 本番: Cloudflare Workers（同一オリジンでフロントも配信）。カスタムドメインは未設定（移行中）。
+
+同一オリジンのため CORS は設定しない（移行前の Rails 版は Vercel のオリジンを許可していた）。
 
 ---
 
@@ -124,13 +126,17 @@ ESP32 から 5 秒ごとに流量データを受信する。べき等制御あ�
 
 `POST /api/admin/daily-reset`
 
-JST 03:00 に Railway Cron から呼び出される。全テーブルを削除し VACUUM を実行する。
+JST 03:00 に Cloudflare Cron Trigger（`scheduled` ハンドラー）から実行される。セッション系テーブル（alerts・flow_readings・daily_summaries・devices・sessions）を全削除する。`scenario_presets` は保持する。D1 では VACUUM を行わない。
+
+この API を外部から叩く場合は `POST` で呼び出し、応答は即時に `{"status":"scheduled"}`、削除は非同期に実行される。
 
 **ヘッダー**
 
 ```
 Authorization: Bearer <ADMIN_RESET_TOKEN>
 ```
+
+`ADMIN_RESET_TOKEN` は Worker の secret。未設定の環境では常に 401 を返す。
 
 ---
 

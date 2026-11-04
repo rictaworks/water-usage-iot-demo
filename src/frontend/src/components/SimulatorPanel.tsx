@@ -7,12 +7,12 @@ import { useTranslations } from 'next-intl';
 import { getSimulatorStatus, startSimulator, stopSimulator } from '@/lib/api';
 import type { Scenario } from '@/types';
 
-const SCENARIOS: Scenario[] = ['normal', 'leak', 'high_flow'];
+const SCENARIOS: Scenario[] = ['normal', 'leak', 'peak'];
 
 const SCENARIO_LABEL_KEYS = {
   normal: 'scenarioNormal',
   leak: 'scenarioLeak',
-  high_flow: 'scenarioHighFlow',
+  peak: 'scenarioHighFlow',
 } as const;
 
 export default function SimulatorPanel() {
