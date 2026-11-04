@@ -10,6 +10,13 @@ interface LocaleLayoutProps {
   params: Promise<{ locale: string }>;
 }
 
+// 静的書き出し（output: "export"）のため、全ロケールのページを事前に生成する。
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
+export const dynamicParams = false;
+
 export default async function LocaleLayout({ children, params }: LocaleLayoutProps) {
   const { locale } = await params;
 

@@ -45,7 +45,8 @@ export interface SSEDeviceStatus {
 
 export type SSEEvent = SSEReading | SSEAlert | SSESummary | SSEDeviceStatus;
 
-export type Scenario = 'normal' | 'leak' | 'high_flow';
+/** シミュレーターのシナリオ名（SPEC/api.md と scenario_presets の name に一致させる）。 */
+export type Scenario = 'normal' | 'leak' | 'peak';
 
 export interface RegisteredDevice {
   device_id: string;

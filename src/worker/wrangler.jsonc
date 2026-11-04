@@ -1,0 +1,77 @@
+{
+  // Cloudflare Workers（Hono）と D1 の構成。フロントエンド（src/frontend の静的書き出し）も
+  // Workers Assets として同じ Worker から配信する（同一オリジン。/api/* のみ Worker が実行する）。
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "account_id": "9c5183bedab008ccef3581056752fa6f",
+
+  // 既定（wrangler dev / 無指定の deploy）は開発用。本番は `wrangler deploy --env production`。
+  // 無指定の deploy で本番 Worker を上書きしないよう、開発用の名前を分けている。
+  "name": "water-usage-iot-demo-dev",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "vars": {
+    "APP_ENV": "development"
+  },
+
+  "assets": {
+    "directory": "../frontend/out",
+    "binding": "ASSETS",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page",
+    "run_worker_first": ["/api/*", "/"]
+  },
+
+  // database_id は D1 データベースの作成後に差し替える（未作成のためプレースホルダ）。
+  // ローカル開発（wrangler dev）はこの値を使わず .wrangler/ 内のローカル DB を使う。
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "water_usage_iot_demo_db",
+      "database_id": "REPLACE_WITH_D1_DATABASE_ID",
+      "migrations_dir": "migrations"
+    }
+  ],
+
+  // 仮想シミュレーター（Rails の VirtualSimulator スレッドの代替）。セッションごとに1インスタンス。
+  "durable_objects": {
+    "bindings": [{ "name": "SIMULATOR", "class_name": "VirtualSimulator" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["VirtualSimulator"] }],
+
+  // JST 03:00 = UTC 18:00（前日）の日次リセット（Rails の Railway Cron の代替）。
+  "triggers": {
+    "crons": ["0 18 * * *"]
+  },
+
+  "env": {
+    "production": {
+      "name": "water-usage-iot-demo",
+      "vars": {
+        "APP_ENV": "production"
+      },
+      "assets": {
+        "directory": "../frontend/out",
+        "binding": "ASSETS",
+        "html_handling": "auto-trailing-slash",
+        "not_found_handling": "404-page",
+        "run_worker_first": ["/api/*", "/"]
+      },
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "water_usage_iot_demo_db",
+          "database_id": "REPLACE_WITH_D1_DATABASE_ID",
+          "migrations_dir": "migrations"
+        }
+      ],
+      "durable_objects": {
+        "bindings": [{ "name": "SIMULATOR", "class_name": "VirtualSimulator" }]
+      },
+      "migrations": [{ "tag": "v1", "new_sqlite_classes": ["VirtualSimulator"] }],
+      "triggers": {
+        "crons": ["0 18 * * *"]
+      }
+    }
+  }
+}
